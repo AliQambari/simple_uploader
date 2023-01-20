@@ -1,7 +1,19 @@
 <!doctype html>
 <title>ارسال فایل به کافی نت آفتاب</title>
+<style>
+    #Progress_Status {
+      width: 50%;
+      background-color: #ddd;
+    }
+    #myprogressBar {
+      width: 2%;
+      height: 20px;
+      background-color: #4CAF50;
+    }
+    </style>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 <h2>فایل را انتخاب کنید</h2>
 <p>
@@ -18,10 +30,29 @@
 <form method="post" action="/" enctype="multipart/form-data">
 <dl>
 <p>
-<input type="file" name="file" autocomplete="off" required>
+<input type="file" name="file" id = "file" autocomplete="off" required >
 </p>
 </dl>
 <p>
-<input type="submit" value="ارسال">
+<input onclick="update()" type="submit" value="ارسال">
 </p>
+
 </form>
+<div id="Progress_Status">
+    <div id="myprogressBar"></div>
+  </div>
+  <script>
+    function update() {
+        var element = document.getElementById("myprogressBar");   
+        var width = 1;
+        var identity = setInterval(scene, 10);
+        function scene() {
+        if (width >= 100) {
+            clearInterval(identity);
+        } else {
+            width++; 
+            element.style.width = width + '%'; 
+            }
+        }
+    }
+    </script>
