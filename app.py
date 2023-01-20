@@ -19,7 +19,7 @@ if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xslx'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xslx','pptx'])
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -38,18 +38,17 @@ def upload_file():
             return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
-            flash('No file selected for uploading')
+            flash('فایلی انتخاب نشده است')
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(filename))
             with open(filename, 'rb') as f:
                  dbx.files_upload(f.read(),path ='/uploads'+filename, mode=dropbox.files.WriteMode.overwrite)
-                 flash('New file successfully uploaded')
-            flash('File successfully uploaded')
+                 flash('.ارسال شد. می توانید فایل بعدی را انتخاب وارسال کنید' +filename)
             return redirect('/')
         else:
-            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
+            flash('.فایل های قابل ارسال: انواع عکس،ورد،پاورپوینت،اکسل و پی دی اف')
             return redirect(request.url)
 
 
