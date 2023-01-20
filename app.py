@@ -44,7 +44,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(filename))
             with open(filename, 'rb') as f:
-                 dbx.files_upload(f.read(),path ='/uploads'+filename, mode=dropbox.files.WriteMode.overwrite)
+                 dbx.files_upload(f.read(),path ="/aftabnet/"+filename, mode=dropbox.files.WriteMode.overwrite)
                  flash('.ارسال شد. می توانید فایل بعدی را انتخاب وارسال کنید' +filename)
             return redirect('/')
         else:
