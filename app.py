@@ -45,7 +45,7 @@ def upload_file():
             file.save(os.path.join(filename))
             with open(filename, 'rb') as f:
                  dbx.files_upload(f.read(),path ='/uploads'+filename, mode=dropbox.files.WriteMode.overwrite)
-           
+                 flash('New file successfully uploaded')
             flash('File successfully uploaded')
             return redirect('/')
         else:
